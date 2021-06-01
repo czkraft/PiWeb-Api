@@ -104,7 +104,12 @@ namespace Zeiss.PiWeb.Api.Rest.Dtos.Data
 			}
 			set
 			{
-				if( value == null )
+				var att = this.GetAttribute( WellKnownKeys.Measurement.Time );
+
+				if( att != null && !( att.RawValue is DateTime ) )
+					return;
+
+				if(  value == null )
 				{
 					this.RemoveAttribute( WellKnownKeys.Measurement.Time );
 					_CachedTimeValue = null;
